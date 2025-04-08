@@ -4,8 +4,13 @@ import { BASE_URL } from "../../config/configApi";
 import { GetAllDanhMucSanPham, GetAllSanPham } from "../../services/SanPham";
 import "./index.scss";
 import {
+    CarOutlined,
+  CheckCircleOutlined,
+  GiftOutlined,
+  PhoneOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 const { Content } = Layout;
 const { Meta } = Card;
 const { Title, Paragraph } = Typography;
@@ -84,7 +89,21 @@ const TrangChu: React.FC = () => {
         'Thanh toán qua ví điện tử (Momo, ZaloPay)',
         'Thẻ tín dụng/thẻ ghi nợ',
       ];
-
+      const newsData = [
+        {
+          title: "Review bộ sưu tập mới A.P.C. x Asics Gel-Kayano 14",
+          image: "/images/anh_3.png",
+        },
+        {
+          title: "Rolex 2025: Hé lộ Land-Dweller, GMT-Master II và nhiều siêu phẩm",
+          image: "/images/anh_4.png",
+        },
+        {
+          title: 'Review chi tiết mẫu giày Fenty x Puma Avanti LS “Team Royal”',
+          image: "/images/anh_5.png",
+        },
+      ];
+      const navigate = useNavigate();
     return (
         <Content style={{ background: "#f0f2f5" }}>
             {/* Banner */}
@@ -93,13 +112,55 @@ const TrangChu: React.FC = () => {
                 <div><img src="/images/logo2.png" alt="Banner 2" style={{ width: "100%", height: "500px" }} /></div>
             </Carousel>
 
-            {/* Giới thiệu website */}
-            <div style={{ textAlign: "center", margin: "40px 0" }}>
-                <Title level={1}>Chào mừng bạn đến với cửa hàng đồ gia dụng của chúng tôi!</Title>
-                <Paragraph style={{ fontSize: "16px", color: "#555" }}>
-                    Chúng tôi cung cấp các sản phẩm chất lượng cao với mức giá hợp lý, giúp bạn nâng cấp không gian sống một cách tiện nghi và hiện đại. Trải nghiệm mua sắm ngay hôm nay để tận hưởng dịch vụ tận tâm từ chúng tôi!
-                </Paragraph>
+            
+    <section className="benefit-section" style={{ padding: "80px 0" }}>
+      <Row gutter={[32, 32]} justify="center">
+        <Col xs={24} md={6}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "center" }}>
+            <CarOutlined className="icon-kaka" style={{ fontSize: 32, color: "#F5A623" }} />
+            <div>
+              <Title level={5}>Miễn phí vận chuyển</Title>
+              <Paragraph style={{ margin: 0 }}>Đơn hàng từ 800k</Paragraph>
             </div>
+          </div>
+        </Col>
+        <Col xs={24} md={6}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12,  justifyContent: "center" }}>
+            <GiftOutlined className="icon-kaka" style={{ fontSize: 32, color: "#F5A623" }} />
+            <div>
+              <Title level={5}>Ưu đãi hấp dẫn</Title>
+              <Paragraph style={{ margin: 0 }}>Nhiều khuyến mãi</Paragraph>
+            </div>
+          </div>
+        </Col>
+        <Col xs={24} md={6}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12,  justifyContent: "center" }}>
+            <CheckCircleOutlined className="icon-kaka" style={{ fontSize: 32, color: "#F5A623" }} />
+            <div>
+              <Title level={5}>100% chính hãng</Title>
+              <Paragraph style={{ margin: 0 }}>Bảo đảm chất lượng</Paragraph>
+            </div>
+          </div>
+        </Col>
+        <Col xs={24} md={6}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12,  justifyContent: "center" }}>
+            <PhoneOutlined className="icon-kaka" style={{ fontSize: 32, color: "#F5A623" }} />
+            <div>
+              <Title level={5}>Hotline: 0906 773 723</Title>
+              <Paragraph style={{ margin: 0 }}>Gọi ngay để mua hàng nhanh hơn</Paragraph>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </section>
+
+                <div style={{ textAlign: "center", margin: "40px 0" }}>
+            <Title level={1}>Chào mừng bạn đến với cửa hàng giày thời trang của chúng tôi!</Title>
+            <Paragraph style={{ fontSize: "16px", color: "#555" }}>
+                Khám phá những mẫu giày mới nhất với thiết kế hiện đại, chất liệu cao cấp và giá cả hợp lý. Chúng tôi cam kết mang đến cho bạn trải nghiệm mua sắm tuyệt vời cùng dịch vụ chăm sóc khách hàng tận tâm.
+            </Paragraph>
+            </div>
+
 
             
             <section className="product-intro-section">
@@ -107,81 +168,115 @@ const TrangChu: React.FC = () => {
                     {/* Phần văn bản bên trái */}
                     <Col xs={24} md={12}>
                     <div className="product-text">
-                        <Paragraph className="section-label text-white">MÁY XAY SINH TỐ</Paragraph>
-                        <Title level={2} className="text-white">MÁY XAY SINH TỐ ĐA NĂNG CHO MỌI GIA ĐÌNH</Title>
+                        <Paragraph className="section-label text-white">GIÀY THỜI TRANG</Paragraph>
+                        <Title level={2} className="text-white">
+                        BƯỚC ĐI PHONG CÁCH – TỰ TIN MỖI NGÀY
+                        </Title>
                         <Paragraph className="text-white">
-                            Máy xay sinh tố đa năng với công suất mạnh mẽ, thiết kế hiện đại, giúp bạn chế biến sinh tố, soup, và các món ăn nhanh chóng. Sản phẩm đi kèm 3 cối xay tiện lợi, lưỡi dao thép không gỉ, và chế độ bảo hành 2 năm. Phù hợp cho mọi gian bếp hiện đại!
+                        Tự tin khẳng định cá tính với những mẫu giày thời trang mới nhất, thiết kế trẻ trung, ôm chân êm ái. Phù hợp mọi hoạt động từ đi học, đi làm đến dạo phố. Nhiều kiểu dáng, đủ size, đa dạng màu sắc để bạn thoải mái lựa chọn. Mua ngay để nhận ưu đãi đặc biệt hôm nay!
                         </Paragraph>
-                        <Button className="text-white" type="primary" shape="round" icon={<ShoppingCartOutlined />} size="large">
+                        <Button
+                        className="text-white"
+                        type="primary"
+                        shape="round"
+                        icon={<ShoppingCartOutlined />}
+                        size="large"
+                        >
                         Mua ngay
                         </Button>
                     </div>
                     </Col>
+
                     {/* Phần hình ảnh bên phải */}
                     <Col xs={24} md={12}>
                     <div className="product-image">
-                        <img style={{width: "100%"}} src="/images/anh_chi_tiet_1.png" alt="" />
+                        <img
+                        style={{ width: "100%" }}
+                        src="/images/anh_2.png"
+                        alt="Giày thời trang nổi bật"
+                        />
                     </div>
                     </Col>
                 </Row>
-            </section>
-            <section className="hero-section">
-                <div className="hero-content">
-                    <div className="hero-text">
-                        <h1>SẢN PHẨM CHÍNH HÃNG – THIẾT KẾ LINH HOẠT</h1>
-                        <p>
-                            Khám phá những sản phẩm gia dụng chất lượng cao với thiết kế thông minh, linh hoạt, phù hợp với mọi không gian sống. Chúng tôi cam kết mang đến sự tiện lợi, độ bền vượt trội và tính thẩm mỹ cao, giúp bạn tối ưu hóa ngôi nhà của mình.
-                        </p>
-                    </div>
-                    <div className="hero-image">
-                        {/* Thay thế bằng hình ảnh thực tế */}
-                        <div className="placeholder-image">
-                        <img src="/images/anh_chi_tiet.png" alt="" /></div>
-                    </div>
+                </section>
+
+
+            <section className="px-8 py-10">
+            <div style={{ padding: "40px 60px" }}>
+                <Title level={4}>Tin Tức - Sự Kiện</Title>
+                <Paragraph style={{ marginBottom: 24 }}>Tin tức phổ biến</Paragraph>
+
+                <Row gutter={[24, 24]}>
+                    {newsData.map((item, index) => (
+                    <Col xs={24} md={8} key={index}>
+                        <Card
+                        hoverable
+                        cover={
+                            <img
+                            alt={item.title}
+                            src={item.image}
+                            style={{ height: 400, objectFit: "cover" }}
+                            />
+                        }
+                        bodyStyle={{ padding: "24px 10px" }}
+                        >
+                        <Paragraph strong style={{ margin: 0 }}>
+                            {item.title}
+                        </Paragraph>
+                        </Card>
+                    </Col>
+                    ))}
+                </Row>
                 </div>
             </section>
-            {/* Danh mục sản phẩm */}
-            <h2>Danh mục sản phẩm</h2>
-            <Row gutter={[16, 16]}>
-                {categories.map(category => (
-                    <Col span={6} key={category.id}>
-                        <Button 
-                            block 
-                            onClick={() => handleCategoryClick(category.id)} 
-                            type={selectedCategory === category.id ? "primary" : "default"}
-                            style={{ transition: "0.3s", fontWeight: "bold", padding: "40px" }}
-                        >
-                            {category.ten_danh_muc}
-                        </Button>
-                    </Col>
-                ))}
-            </Row>
 
-            {/* Sản phẩm nổi bật */}
-            <h2 style={{ marginTop: "20px" }}>Sản phẩm nổi bật</h2>
-            {loading && page === 1 ? <Spin size="large" style={{ display: "block", margin: "20px auto" }} /> : (
-                <>
-                    <Row gutter={[16, 16]}>
-                        {products.map(product => (
-                            <Col span={6} key={product.id}>
-                                <Card 
-                                    cover={<img alt={product.ten_san_pham} src={`${BASE_URL}/${product.duongDanAnh}`} style={{ transition: "0.3s", cursor: "pointer" }} />}
-                                    hoverable
-                                    actions={[<Button type="primary">Mua ngay</Button>]}
-                                >
-                                    <Meta title={product.ten_san_pham} description={`Giá: ${product.gia}đ`} />
-                                </Card>
-                            </Col>
-                        ))}
-                    </Row>
-                    {/* Ẩn nút nếu số sản phẩm hiện tại không chia hết cho 10 */}
-                    {products.length % 10 === 0 && products.length < totalProducts && (
-                        <div style={{ textAlign: "center", marginTop: "20px" }}>
-                            <Button type="primary" onClick={handleLoadMore} loading={loading}>Xem thêm</Button>
-                        </div>
-                    )}
-                </>
-            )}
+            <section style={{margin: "0 60px"}}>
+                
+                {/* Danh mục sản phẩm */}
+                <h2>Danh mục sản phẩm</h2>
+                <Row gutter={[16, 16]}>
+                    {categories.map(category => (
+                        <Col span={6} key={category.id}>
+                            <Button 
+                                block 
+                                onClick={() => handleCategoryClick(category.id)} 
+                                type={selectedCategory === category.id ? "primary" : "default"}
+                                style={{ transition: "0.3s", fontWeight: "bold", padding: "40px" }}
+                            >
+                                {category.ten_danh_muc}
+                            </Button>
+                        </Col>
+                    ))}
+                </Row>
+
+                {/* Sản phẩm nổi bật */}
+                <h2 style={{ marginTop: "20px" }}>Sản phẩm nổi bật</h2>
+                {loading && page === 1 ? <Spin size="large" style={{ display: "block", margin: "20px auto" }} /> : (
+                    <>
+                        <Row gutter={[16, 16]}>
+                            {products.map(product => (
+                                <Col span={6} key={product.id}>
+                                    <a href={`/chi-tiet-san-pham/${product.ma_san_pham}`} style={{ textDecoration: "none" }}>
+                                        <Card 
+                                            cover={<img alt={product.ten_san_pham} src={`${BASE_URL}/${product.duongDanAnh}`} style={{ transition: "0.3s", cursor: "pointer" }} />}
+                                            hoverable
+                                            actions={[<Button onClick={() => navigate(`/chi-tiet-san-pham/${product.ma_san_pham}`)} type="primary">Mua ngay</Button>]}
+                                        >
+                                            <Meta title={product.ten_san_pham} description={`Giá: ${product.gia}đ`} />
+                                        </Card>
+                                    </a>
+                                </Col>
+                            ))}
+                        </Row>
+                        {/* Ẩn nút nếu số sản phẩm hiện tại không chia hết cho 10 */}
+                        {products.length % 10 === 0 && products.length < totalProducts && (
+                            <div style={{ textAlign: "center", marginTop: "20px" }}>
+                                <Button type="primary" onClick={handleLoadMore} loading={loading}>Xem thêm</Button>
+                            </div>
+                        )}
+                    </>
+                )}
+            </section>
             <div style={{ textAlign: "center", margin: "40px 0" }}>
                 <Title level={1}>Chào mừng bạn đến với cửa hàng đồ gia dụng của chúng tôi!</Title>
                 <Paragraph style={{ fontSize: "16px", color: "#555" }}>
@@ -189,7 +284,7 @@ const TrangChu: React.FC = () => {
                 </Paragraph>
             </div>
             <div className="anh_bia">
-                <img src="/images/anh_bia.png" alt="" />
+                <img src="/images/anh_1.png" alt="" />
             </div>
 
             <section className="faq-section">

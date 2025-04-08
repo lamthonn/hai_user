@@ -134,11 +134,17 @@
   }
 
   .anh_bia{
-    width: calc(100% + 96px);
     margin: 0px 0 20px -48px;
     img {
         width: 100%;
     }
+}
+
+.icon-kaka {
+  svg {
+    width: 80px !important;
+    height: 90px !important;
+  }
 }
 
 
