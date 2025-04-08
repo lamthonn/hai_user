@@ -266,101 +266,84 @@ const ThanhToan: React.FC<ThanhToanProps> = ({}) => {
   if (dataUser) {
     return (
       <Spin spinning={loading}>
-        <div className="thanh-toan">
-          <div className="thong-tin-thanh-toan">
-            <div className="thanh-toan-left">
-              <GroupLabel label="Thông tin sản phẩm" />
-              <div>
-                <Table
-                  pagination={false}
-                  columns={columns}
-                  dataSource={dataThanhToan}
-                />
-              </div>
-            </div>
-
-            <div className="thanh-toan-right">
-              <GroupLabel label="Thông tin nhận hàng" />
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-              >
-                <div className="ten">
-                  <Typography.Text>Tên: {dataUser.ten}</Typography.Text>
-                </div>
-                <div className="sdt">
-                  <Typography.Text>
-                    Số điện thoại: {dataUser.so_dien_thoai}
-                  </Typography.Text>
-                </div>
-                <div className="dia_chi">
-                  <Typography.Text>Địa chỉ: {dataUser.dia_chi}</Typography.Text>
-                </div>
-                <div
-                  className="thay-doi-thong-tin"
-                  style={{ marginTop: "16px" }}
-                >
+        <div className="thanh-toan" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          {/* 1. Nội dung chính chia làm 2 cột */}
+          <div className="thong-tin-thanh-toan" style={{ display: "flex", gap: "24px" }}>
+            {/* Cột trái: Sản phẩm */}
+            
+    
+            {/* Cột phải: Thông tin người nhận và phương thức thanh toán */}
+            <div className="thanh-toan-left" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              <div className="thong-tin-nguoi-nhan" style={{ border: "1px solid #eee", padding: "16px", borderRadius: "8px" }}>
+                <GroupLabel label="Thông tin nhận hàng" /><br />
+                <Typography.Text>Tên: {dataUser.ten}</Typography.Text><br />
+                <Typography.Text>Số điện thoại: {dataUser.so_dien_thoai}</Typography.Text><br />
+                <Typography.Text>Địa chỉ: {dataUser.dia_chi}</Typography.Text>
+                <div style={{ marginTop: "12px" }}>
                   <Button
-                    onClick={() => {
-                      navigate(routesConfig.thongTinTaiKhoan);
-                    }}
+                    onClick={() => navigate(routesConfig.thongTinTaiKhoan)}
+                    type="link"
                   >
                     Thay đổi thông tin
                   </Button>
                 </div>
-                <GroupLabel label="Phương thức thanh toán" />
+              </div>
+    
+              <div className="phuong-thuc-thanh-toan" style={{ border: "1px solid #eee", padding: "16px", borderRadius: "8px" }}>
+                <GroupLabel label="Phương thức thanh toán" /><br />
                 <Radio.Group
-                  onChange={(e: RadioChangeEvent) =>
-                    setPhuongThucThanhToan(e.target.value)
-                  }
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "16px",
-                    fontSize: "16px",
-                  }}
+                  onChange={(e: RadioChangeEvent) => setPhuongThucThanhToan(e.target.value)}
+                  style={{ display: "flex", flexDirection: "column", gap: "16px" }}
                 >
                   <Radio value="0">
-                    <Image
-                      preview={false}
-                      width={"30%"}
-                      src="/images/stripe.png"
-                    />
+                    <Image preview={false} width="30%" src="/images/stripe.png" />
                   </Radio>
                   <Radio value="1">
-                    <Image
-                      preview={false}
-                      width={"38%"}
-                      style={{ marginLeft: "10px", marginBottom: "10px" }}
-                      src="/images/ZaloPay_Logo.png"
-                    />
+                    <Image preview={false} width="38%" src="/images/ZaloPay_Logo.png" />
                   </Radio>
-                  <Radio value="2"> Thanh toán khi nhận hàng </Radio>
+                  <Radio value="2">Thanh toán khi nhận hàng</Radio>
                 </Radio.Group>
               </div>
+    
+              {/* Tóm tắt đơn hàng */}
+              <div className="tom-tat-don-hang" style={{ border: "1px solid #eee", padding: "16px", borderRadius: "8px" }}>
+                <GroupLabel label="Tóm tắt đơn hàng" /><br />
+                <Typography.Text>
+                  Số lượng sản phẩm: {dataThanhToan.length}
+                </Typography.Text>
+                <br />
+                <Typography.Text strong style={{ fontSize: "16px" }}>
+                  Tổng tiền: {tinhTongTienGioHang(dataThanhToan)}
+                </Typography.Text>
+                <div style={{ marginTop: "16px" }}>
+                  <ButtonCustom
+                    text="THANH TOÁN"
+                    onClick={() => {
+                      if (PhuongThucThanhToan === "0") {
+                        fetchCheckoutSession("stripe");
+                      } else if (PhuongThucThanhToan === "1") {
+                        fetchCheckoutSession("zalopay");
+                      } else if (PhuongThucThanhToan === "2") {
+                        fetchCheckoutSession("2");
+                      }
+                    }}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="tong-tien">
-            <Typography.Text>
-              Tổng tiền ({dataThanhToan.length} sản phẩm):{" "}
-              <GroupLabel label={tinhTongTienGioHang(dataThanhToan)} />
-            </Typography.Text>
-            <ButtonCustom
-              text="THANH TOÁN"
-              onClick={() => {
-                if (PhuongThucThanhToan === "0") {
-                  fetchCheckoutSession("stripe"); // Trigger Stripe payment
-                } else if (PhuongThucThanhToan === "1") {
-                  fetchCheckoutSession("zalopay"); // Trigger ZaloPay payment
-                } else if(PhuongThucThanhToan === "2") {
-                  fetchCheckoutSession("2");
-                }
-              }}
-            />
-
+            <div className="thanh-toan-right" style={{ flex: 2 }}>
+              <GroupLabel label="Thông tin sản phẩm" />
+              <Table
+                pagination={false}
+                columns={columns}
+                dataSource={dataThanhToan}
+              />
+            </div>
           </div>
         </div>
       </Spin>
     );
+    
   } else {
     return <Skeleton active />;
   }
