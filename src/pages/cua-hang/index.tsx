@@ -1,9 +1,11 @@
 import {
   Avatar,
   Card,
+  Col,
   Image,
   Pagination,
   PaginationProps,
+  Row,
   Slider,
   Spin,
   Splitter,
@@ -14,6 +16,7 @@ import { axiosConfig, BASE_URL } from "../../config/configApi";
 import ShowToast from "../../components/show-toast/ShowToast";
 import "./index.scss";
 import {
+  CloseOutlined,
   EditOutlined,
   EllipsisOutlined,
   FilterOutlined,
@@ -102,51 +105,68 @@ const CuaHang: React.FC = () => {
     value
   ) =>
     `${value?.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`;
+    const [hienBoLoc, setHienBoLoc] = useState(true);
+
   return (
     <div className="ds-san-pham">
       <Spin spinning={loading}>
-        <Splitter
-          style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", minHeight:"75vh" }}
-          onResize={setSizes}
+        {/* Thanh trên cùng chứa nút bật/tắt bộ lọc */}
+        <div
+          style={{
+            background: "#fff",
+            padding: "12px 16px",
+            borderBottom: "1px solid #f0f0f0",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
         >
-          <Splitter.Panel
-            collapsible
-            size={sizes[0]}
-            resizable={false}
-            className="Splitter-left"
+          <Typography.Title level={4} style={{ margin: 0 }}>
+            Danh sách sản phẩm
+          </Typography.Title>
+          <ButtonCustom
+            icon={hienBoLoc ? <CloseOutlined /> : <FilterOutlined />}
+            onClick={() => setHienBoLoc(!hienBoLoc)}
+            text={hienBoLoc ? "Đóng bộ lọc" : "Mở bộ lọc"}
+
+          />
+        </div>
+
+        {/* Bộ lọc (có thể ẩn/hiện) */}
+        {hienBoLoc && (
+          <div
+            style={{
+              padding: "16px",
+              background: "#fafafa",
+              borderBottom: "1px solid #f0f0f0",
+            }}
           >
-            <div className="Splitter-left-content">
-              <Typography.Title level={3} className="Title" style={{color: "var(--color-primary-8)"}}>
-                <FilterOutlined /> Lọc sản phẩm
-              </Typography.Title>
-
-              {/* tìm kiếm bằng từ khóa */}
-              <FormItemInput
-                label="Tìm kiếm"
-                placeholder="Nhập từ khóa"
-                value={tu_khoa}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  set_tu_khoa(e.target.value);
-                }}
-              />
-
-              {/* trạng thái */}
-              <FormSelect
-                selectType="selectApi"
-                label={"Danh mục"}
-                src="api/DanhMucSanPham/get-all"
-                valueField={"id"}
-                labelField="ten_danh_muc"
-                allOptionLabel="Tất cả"
-                value={danh_muc}
-                onChange={set_danh_muc}
-              />
-
-              {/* khoảng tiền */}
-              <div>
-                <Typography.Text style={{ fontSize: "16px" }}>
-                  Giá
-                </Typography.Text>
+            <Row gutter={[16, 16]}>
+              <Col span={8}>
+                <FormItemInput
+                  label="Tìm kiếm"
+                  placeholder="Nhập từ khóa"
+                  value={tu_khoa}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    set_tu_khoa(e.target.value)
+                  }
+                />
+              </Col>
+              <Col span={8}>
+                <FormSelect
+                  selectType="selectApi"
+                  label={"Danh mục"}
+                  src="api/DanhMucSanPham/get-all"
+                  valueField={"id"}
+                  labelField="ten_danh_muc"
+                  allOptionLabel="Tất cả"
+                  value={danh_muc}
+                  onChange={set_danh_muc}
+                />
+              </Col>
+              <Col span={8}>
+                <Typography.Text>Khoảng giá</Typography.Text>
                 <Slider
                   range
                   min={20000}
@@ -156,94 +176,87 @@ const CuaHang: React.FC = () => {
                   tooltip={{ formatter }}
                   onChange={set_khoang_tien}
                 />
-              </div>
+              </Col>
+              <Col span={24}>
+                <ButtonCustom text="Tìm kiếm" onClick={handleSearch} />
+              </Col>
+            </Row>
+          </div>
+        )}
 
-              {/* button */}
-              <ButtonCustom text="Tìm kiếm" onClick={handleSearch} />
-            </div>
-          </Splitter.Panel>
+        {/* DANH SÁCH SẢN PHẨM */}
+        <div style={{ padding: "16px" }}>
+          <Typography.Title level={4}>
+            <GroupLabel label="Kết quả tìm kiếm" />
+          </Typography.Title>
 
-          <Splitter.Panel size={sizes[1]} className="Splitter-right">
-            <Typography.Title level={3} className="Title">
-              <GroupLabel label="Kết quả tìm kiếm"/>
-            </Typography.Title>
-            <div className="Splitter-right-content">
-              {ProductsData.map((item: any) => {
-                return (
-                  <Card
-                    hoverable
-                    onClick={()=> handleClickProduct(item)}
-                    style={{
-                      width: 250,
-                      border: "1px solid rgb(214, 214, 214)",
-                    }}
-                    cover={
-                      <Image
-                        preview={false}
-                        alt="example"
-                        style={{ border: "1px solid rgb(214, 214, 214)" }}
-                        src={`${BASE_URL}/${item.duongDanAnh}`}
-                      />
-                    }
-                    actions={[
-                      <ShoppingCartOutlined key="cart" className="cart-icon" />,
-                    ]}
-                  >
-                    <div className="mo-ta-san-pham">
-                      <Typography.Text className="ten-san-pham">
-                        {item.ten_san_pham}
+          <div className="product-grid">
+            {ProductsData.map((item: any) => (
+              <Card
+                key={item.id}
+                hoverable
+                onClick={() => handleClickProduct(item)}
+                className="product-card"
+                cover={
+                  <Image
+                    preview={false}
+                    alt="Ảnh sản phẩm"
+                    src={`${BASE_URL}/${item.duongDanAnh}`}
+                    className="product-image"
+                  />
+                }
+                actions={[<ShoppingCartOutlined key="cart" className="cart-icon" />]}
+              >
+                <div className="product-info">
+                  <Typography.Text className="ten-san-pham">
+                    {item.ten_san_pham}
+                  </Typography.Text>
+                  <Typography.Text type="secondary" className="ten-danh-muc">
+                    {item.ten_danh_muc}
+                  </Typography.Text>
+                  <div>
+                    {item.khuyen_mai ? (
+                      <>
+                        <Typography.Text delete className="gia-san-pham">
+                          {item.gia.toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          })}
+                        </Typography.Text>
+                        <Typography.Text className="khuyen-mai">
+                          {item.khuyen_mai.toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          })}
+                        </Typography.Text>
+                      </>
+                    ) : (
+                      <Typography.Text className="gia-san-pham">
+                        {item.gia.toLocaleString("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
                       </Typography.Text>
-                      <Typography.Text keyboard className="ten-danh-muc">
-                        {item.ten_danh_muc}
-                      </Typography.Text>
-                      <div>
-                        {item.khuyen_mai ? (
-                          <Typography.Text delete className="gia-san-pham">
-                            {item.gia.toLocaleString("vi-VN", {
-                              style: "currency",
-                              currency: "VND",
-                            })}{" "}
-                            <span></span>
-                          </Typography.Text>
-                        ) : (
-                          <Typography.Text className="gia-san-pham">
-                            {item.gia.toLocaleString("vi-VN", {
-                              style: "currency",
-                              currency: "VND",
-                            })}
-                          </Typography.Text>
-                        )}
-                        {item.khuyen_mai ? (
-                          <Typography.Text
-                            className="khuyen-mai"
-                            style={{ marginLeft: "5px" }}
-                          >
-                            {item.khuyen_mai.toLocaleString("vi-VN", {
-                              style: "currency",
-                              currency: "VND",
-                            })}
-                          </Typography.Text>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    </div>
-                  </Card>
-                );
-              })}
-            </div>
-            <Pagination
-              size="default"
-              total={total}
-              align="end"
-              current={pageIndex}
-              pageSize={pageSize}
-              onChange={onChange}
-            />
-          </Splitter.Panel>
-        </Splitter>
+                    )}
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          <Pagination
+            size="default"
+            total={total}
+            current={pageIndex}
+            pageSize={pageSize}
+            onChange={onChange}
+            className="pagination-custom"
+            style={{ marginTop: "24px", textAlign: "right" }}
+          />
+        </div>
       </Spin>
     </div>
   );
+    
 };
 export default CuaHang;

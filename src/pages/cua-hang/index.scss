@@ -1,50 +1,91 @@
-.ds-san-pham{
-    .Splitter-left{
-        padding: 24px;
-        .Splitter-left-content{
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-    }
-
-    .Splitter-right{
-        padding: 24px;
-        .Splitter-right-content{
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-    }
-    .ant-card{
-        cursor: pointer;
-        .ant-card-body{
-            padding: 8px 5px; 
-        }
-        .ant-card-actions:hover{
-            background-color: var(--color-primary-3);
-            .cart-icon{
-                color: var(--color-primary-9) !important;
-            }
-        }
-    }
-    
-    .mo-ta-san-pham{
-        display: flex;
-        flex-direction: column;
-        // align-items: center ;
-        .ten-san-pham{
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .gia-san-pham{
-            font-size: 16px;
-            color: #999999;
-        }
-    }
-
-    .Title{
-        margin: 0 0 10px 0;
-    }
-}
+.custom-layout {
+    display: flex;
+    gap: 24px;
+    min-height: 75vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+  }
+  
+  .filter-panel {
+    flex: 0 0 280px;
+    border-right: 1px solid #f0f0f0;
+    padding-right: 16px;
+  }
+  
+  .filter-title {
+    color: var(--color-primary-8);
+  }
+  
+  .filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .price-filter {
+    margin-top: 12px;
+  }
+  
+  .product-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 16px;
+  }
+  
+  .product-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+  }
+  
+  .product-image {
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .product-info {
+    padding: 8px 0;
+  }
+  
+  .ten-san-pham {
+    font-weight: 600;
+    display: block;
+  }
+  
+  .ten-danh-muc {
+    font-size: 13px;
+    color: gray;
+  }
+  
+  .gia-san-pham {
+    color: #ff4d4f;
+    font-weight: bold;
+    margin-right: 6px;
+  }
+  
+  .khuyen-mai {
+    color: #52c41a;
+    font-weight: bold;
+  }
+  
+  .cart-icon {
+    font-size: 18px;
+  }
+  
+  .pagination-custom {
+    margin-top: 20px;
+    text-align: right;
+    width: 100% !important;
+    display: flex
+;
+    justify-content: center;
+  }
+  
