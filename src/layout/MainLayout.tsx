@@ -10,7 +10,7 @@ const { Content, Footer, Sider } = Layout;
 
 const MainLayout: React.FC<{
   children?: React.ReactNode;
-  breadcrumb: string[];
+  breadcrumb?: any[];
 }> = ({ children, breadcrumb }) => {
   const location = useLocation(); // Lấy thông tin route hiện tại
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,12 +24,15 @@ const MainLayout: React.FC<{
     <Layout className="header-component">
       <Spin spinning={loading}>
         <HeaderLayout setLoading={setLoading}/>
-        <Content style={{ padding: "0 48px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            {breadcrumb.map((item) => {
+        <Content style={{ padding: "0" }}>
+          {
+            breadcrumb ? <Breadcrumb separator="-" style={{ margin: "16px 20px" }}>
+            {breadcrumb ? breadcrumb.map((item) => {
               return <Breadcrumb.Item>{item}</Breadcrumb.Item>;
-            })}
-          </Breadcrumb>
+            }) : null}
+          </Breadcrumb> : null
+          }
+          
           <div
             style={{
               backgroundColor: "#FFFFFF",
@@ -43,7 +46,7 @@ const MainLayout: React.FC<{
         </Content>
 
         <Footer style={{ textAlign: "center" }}>
-        G-Connect ©{new Date().getFullYear()} Created by Lâm Vũ
+        Shoes ©{new Date().getFullYear()} Created by Đinh Hải
         </Footer>
       </Spin>
     </Layout>

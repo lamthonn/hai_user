@@ -57,10 +57,10 @@ const LoginPage: React.FC<{
       <div className="login-header">
         <img
           src="/images/logo_removeBg.png"
-          alt="G-Connect Logo"
+          alt="Shoes Logo"
           style={{ width: "50%", marginLeft: "25%" }}
         />
-        <Title level={3}>Welcome to G-Connect</Title>
+        <Title level={3}>Đăng nhập</Title>
       </div>
 
       <Form
